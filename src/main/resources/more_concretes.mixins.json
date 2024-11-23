@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "github.mcdatapack.more_concretes.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"ExampleMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
