@@ -23,7 +23,7 @@ public class BlockInit {
             block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255)
     };
     public static String[] CONCRETE_NAMES(String lang) {
-            return new String[]{
+            return new String[] {
                     name(DARK_BLUE, 0, 13, 57, lang), name(BLACK, 2, 0, 8, lang), name(DARK_BLUE, 7, 40, 109, lang),
                     name(BLUE, 7, 49, 167, lang), name(BLUE, 11, 63, 175, lang),
                     name(DARK_BLUE, 14, 36, 96, lang), name(BLUE, 14, 53, 158, lang), name(BLUE, 15, 65, 186, lang),
@@ -35,7 +35,7 @@ public class BlockInit {
                     name(GRAY, 100, lang), name(LIGHT_GRAY, 140, lang), name(LIGHT_GRAY, 160, lang), name(LIGHT_GRAY, 200, lang),
                     name(WHITE, 220, lang), name(WHITE, 240, lang), name(WHITE, 255, lang)
             };
-    };
+    }
 
     private static String name(Colors s, int r, int g, int b, String l) {
         switch (l) {
