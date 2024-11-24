@@ -4,19 +4,21 @@ import github.mcdatapack.more_concretes.MoreConcretes;
 import github.mcdatapack.more_concretes.init.BlockInit;
 import github.mcdatapack.more_concretes.init.ItemGroupInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.RecipeProvider;
+import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
+
+import static github.mcdatapack.more_concretes.datagen.VanillaColors.*;
 
 public class Provider {
     public static class Models extends FabricModelProvider {
@@ -26,7 +28,7 @@ public class Provider {
 
         @Override
         public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-            for (Block concrete : BlockInit.concretes) {
+            for (Block concrete : BlockInit.CONCRETES) {
                 blockStateModelGenerator.registerSimpleCubeAll(concrete);
             }
         }
@@ -44,7 +46,7 @@ public class Provider {
 
         @Override
         public void generate() {
-            for (Block concrete : BlockInit.concretes) {
+            for (Block concrete : BlockInit.CONCRETES) {
                 addDrop(concrete);
             }
         }
@@ -57,7 +59,26 @@ public class Provider {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-            getOrCreateTagBuilder(net.minecraft.registry.tag.BlockTags.PICKAXE_MINEABLE).add(BlockInit.concretes);
+            getOrCreateTagBuilder(net.minecraft.registry.tag.BlockTags.PICKAXE_MINEABLE).add(BlockInit.CONCRETES);
+        }
+    }
+
+    public static class Recipe extends FabricRecipeProvider {
+        public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+            super(output, registriesFuture);
+        }
+
+        @Override
+        public void generate(RecipeExporter exporter) {
+            recipe(exporter, BLUE, 0);
+            recipe(exporter, BLACK, 1);
+            for (int i = 2; i < 10; i++) recipe(exporter, BLUE, i);
+            for (int i = 10; i < 16; i++) recipe(exporter, LIGHT_BLUE, i);
+            recipe(exporter, WHITE, 16);
+        }
+
+        public void recipe(RecipeExporter exporter, VanillaColors color, int output) {
+            RecipeProvider.offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[output], color.getConcrete());
         }
     }
 
@@ -70,7 +91,9 @@ public class Provider {
             @Override
             public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
                 addText(t, ItemGroupInit.MORE_CONCRETES_TITLE, "More Concretes");
-                t.add(BlockInit.concretes[0], "");
+                for (int i = 0; i < BlockInit.CONCRETES.length; i++) {
+                    t.add(BlockInit.CONCRETES[i], BlockInit.CONCRETE_NAMES[i]);
+                }
             }
 
 

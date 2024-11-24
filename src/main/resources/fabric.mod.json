@@ -8,9 +8,8 @@
 		"MC-Datapack(Timo_11)", "Patrick_Farm"
 	],
 	"contact": {
-		"homepage": "",
-		"sources": "",
-	  	"issues": ""
+		"sources": "https://github.com/MC-datapack/More_Concretes",
+	  	"issues": "https://github.com/MC-datapack/More_Concretes/issues"
 	},
 	"license": "BSD 3-Clause",
 	"icon": "assets/more_concretes/icon.png",
@@ -28,7 +27,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.21",
+		"minecraft": ">=1.21 <=1.21.1",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
