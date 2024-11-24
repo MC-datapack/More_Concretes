@@ -30,9 +30,8 @@ public class BlockInit {
             name(LIGHT_BLUE, 27, 112, 254), name(LIGHT_BLUE, 43, 118, 243), name(LIGHT_BLUE, 52, 153, 255),
             name(LIGHT_BLUE, 18, 106, 255), name(LIGHT_BLUE, 80, 198, 244),
             name(LIGHT_BLUE, 89, 179, 255), name(WHITE, 206, 244, 255),
-            name(BLACK, 0), name(DARK_GRAY, 25), name(DARK_GRAY, 50), name(GRAY, 75), name(GRAY, 100),
-            name(LIGHT_GRAY, 140), name(LIGHT_GRAY, 160), name(LIGHT_GRAY, 200), name(WHITE, 220), name(WHITE, 240),
-            name(WHITE, 255)
+            name(BLACK, 0), name(DARK_GRAY, 25), name(DARK_GRAY, 50), name(GRAY, 75), name(GRAY, 100), name(LIGHT_GRAY, 140),
+            name(LIGHT_GRAY, 160), name(LIGHT_GRAY, 200), name(WHITE, 220), name(WHITE, 240), name(WHITE, 255)
     };
 
     private static String name(Colors s, int r, int g, int b) {

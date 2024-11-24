@@ -79,6 +79,10 @@ public class Provider {
             for (int i = 2; i < 10; i++) recipe(exporter, BLUE, i);
             for (int i = 10; i < 16; i++) recipe(exporter, LIGHT_BLUE, i);
             recipe(exporter, WHITE, 16);
+            recipe(exporter, BLACK, 17);
+            for (int i = 18; i < 22; i++) recipe(exporter, GRAY, i);
+            for (int i = 22; i < 25; i++) recipe(exporter, LIGHT_GRAY, i);
+            for (int i = 25; i < 28; i++) recipe(exporter, WHITE, i);
         }
 
         public void recipe(RecipeExporter exporter, VanillaColors color, int output) {
@@ -100,6 +104,10 @@ public class Provider {
                     for (int i = 2; i < 10; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], BLUE.getConcrete());
                     for (int i = 10; i < 16; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], LIGHT_BLUE.getConcrete());
                     offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[16], WHITE.getConcrete());
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[17], BLACK.getConcrete());
+                    for (int i = 18; i < 22; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], GRAY.getConcrete());
+                    for (int i = 22; i < 25; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], LIGHT_GRAY.getConcrete());
+                    for (int i = 25; i < 28; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], WHITE.getConcrete());
                 }
             };
         }
