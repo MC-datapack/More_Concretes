@@ -9,7 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
 import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.RecipeProvider;
+import net.minecraft.data.server.recipe.RecipeGenerator;
+//import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -63,7 +64,7 @@ public class Provider {
         }
     }
 
-    public static class Recipe extends FabricRecipeProvider {
+    /*public static class Recipe extends FabricRecipeProvider {
         public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, registriesFuture);
         }
@@ -79,6 +80,29 @@ public class Provider {
 
         public void recipe(RecipeExporter exporter, VanillaColors color, int output) {
             RecipeProvider.offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[output], color.getConcrete());
+        }
+    }*/
+    public static class Recipe extends FabricRecipeProvider {
+        public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+            super(output, registriesFuture);
+        }
+
+        protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+            return new RecipeGenerator(registries, exporter) {
+                @Override
+                public void generate() {
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[0], BLUE.getConcrete());
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[1], BLACK.getConcrete());
+                    for (int i = 2; i < 10; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], BLUE.getConcrete());
+                    for (int i = 10; i < 16; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], LIGHT_BLUE.getConcrete());
+                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[16], WHITE.getConcrete());
+                }
+            };
+        }
+
+        @Override
+        public String getName() {
+            return "recipe";
         }
     }
 
