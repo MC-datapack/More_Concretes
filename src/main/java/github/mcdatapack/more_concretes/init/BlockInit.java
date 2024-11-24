@@ -34,19 +34,23 @@ public class BlockInit {
     }
 
     public static Block blockWithoutItem(String name) {
+        //TODO 1.21.2
         //RegistryKey<Block> registryKey = RegistryKey.of(RegistryKeys.BLOCK, MoreConcretes.id(name));
         return Registry.register(Registries.BLOCK, MoreConcretes.id(name), new Block(AbstractBlock.Settings.create()
                 .instrument(NoteBlockInstrument.BASEDRUM)
                 .requiresTool()
                 .strength(1.8F)
+                //TODO 1.21.2
                 //.registryKey(registryKey)
         ));
     }
 
     public static Block block(String name) {
+        //TODO 1.21.2
         //RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, MoreConcretes.id(name));
         Block registered = blockWithoutItem(name);
         Registry.register(Registries.ITEM, MoreConcretes.id(name), new BlockItem(registered, new Item.Settings()
+                //TODO 1.21.2
                 //.registryKey(registryKey)
                 //.useBlockPrefixedTranslationKey()
         ));
