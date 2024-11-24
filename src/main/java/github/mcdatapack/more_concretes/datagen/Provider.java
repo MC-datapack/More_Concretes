@@ -8,11 +8,11 @@ import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
-//TODO 1.21
 import net.minecraft.data.server.recipe.RecipeExporter;
 //TODO 1.21.2
-//import net.minecraft.data.server.recipe.RecipeGenerator;
-import net.minecraft.data.server.recipe.RecipeProvider;
+import net.minecraft.data.server.recipe.RecipeGenerator;
+//TODO 1.21
+//import net.minecraft.data.server.recipe.RecipeProvider;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -67,7 +67,7 @@ public class Provider {
     }
 
     //TODO 1.21
-    public static class Recipe extends FabricRecipeProvider {
+    /*public static class Recipe extends FabricRecipeProvider {
         public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, registriesFuture);
         }
@@ -88,9 +88,9 @@ public class Provider {
         public void recipe(RecipeExporter exporter, VanillaColors color, int output) {
             RecipeProvider.offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[output], color.getConcrete());
         }
-    }
+    }*/
     //TODO 1.21.2
-    /*public static class Recipe extends FabricRecipeProvider {
+    public static class Recipe extends FabricRecipeProvider {
         public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, registriesFuture);
         }
@@ -116,7 +116,7 @@ public class Provider {
         public String getName() {
             return "recipe";
         }
-    }*/
+    }
 
     public static class Lang {
         public static class English extends FabricLanguageProvider {
