@@ -11,6 +11,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 
+import static github.mcdatapack.more_concretes.init.Colors.*;
+
 public class BlockInit {
     //TODO Do the registries here
     public static final Block[] CONCRETES = {
@@ -21,20 +23,24 @@ public class BlockInit {
             block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255)
     };
     public static final String[] CONCRETE_NAMES = {
-            name("Dark Blue", 0, 13, 57), name("Black", 2, 0, 8), name("Dark Blue", 7, 40, 109), name("Blue", 7, 49, 167),
-            name("Blue", 11, 63, 175),
-            name("Dark Blue", 14, 36, 96), name("Blue", 14, 53, 158), name("Blue", 15, 65, 186), name("Blue", 18, 106, 255),
-            name("Blue", 27, 75, 186),
-            name("Light Blue", 27, 112, 254), name("Light Blue", 43, 118, 243), name("Light Blue", 52, 153, 255),
-            name("Light Blue", 18, 106, 255), name("Light Blue", 80, 198, 244),
-            name("Light Blue", 89, 179, 255), name("White", 206, 244, 255),
-            "", "", "", "", "",
-            "", "", "", "", "",
-            ""
+            name(DARK_BLUE, 0, 13, 57), name(BLACK, 2, 0, 8), name(DARK_BLUE, 7, 40, 109), name(BLUE, 7, 49, 167),
+            name(BLUE, 11, 63, 175),
+            name(DARK_BLUE, 14, 36, 96), name(BLUE, 14, 53, 158), name(BLUE, 15, 65, 186), name(BLUE, 18, 106, 255),
+            name(BLUE, 27, 75, 186),
+            name(LIGHT_BLUE, 27, 112, 254), name(LIGHT_BLUE, 43, 118, 243), name(LIGHT_BLUE, 52, 153, 255),
+            name(LIGHT_BLUE, 18, 106, 255), name(LIGHT_BLUE, 80, 198, 244),
+            name(LIGHT_BLUE, 89, 179, 255), name(WHITE, 206, 244, 255),
+            name(BLACK, 0), name(DARK_GRAY, 25), name(DARK_GRAY, 50), name(GRAY, 75), name(GRAY, 100),
+            name(LIGHT_GRAY, 140), name(LIGHT_GRAY, 160), name(LIGHT_GRAY, 200), name(WHITE, 220), name(WHITE, 240),
+            name(WHITE, 255)
     };
 
-    private static String name(String s, int r, int g, int b) {
-        return s + " Concrete (r=" + r + " g=" + g + " b=" + b + ")";
+    private static String name(Colors s, int r, int g, int b) {
+        return s.getName() + " Concrete (r=" + r + " g=" + g + " b=" + b + ")";
+    }
+
+    private static String name(Colors s, int i) {
+        return name(s, i, i, i);
     }
 
     public static Block blockWithoutItem(String name) {
