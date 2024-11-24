@@ -14,10 +14,11 @@ import net.minecraft.registry.RegistryKeys;
 public class BlockInit {
     //TODO Do the registries here
     public static final Block[] CONCRETES = {
-            block("r0g13b57"), block("r2g0b8"), block("r7g40b109"), block("r7g49b167"), block("r11g63b175"),
-            block("r14g36b96"), block("r14g53b158"), block("r15g65b186"), block("r18g106b255"), block("r27g75b186"),
-            block("r27g112b254"), block("r43g118b243"), block("r52g153b255"), block("r66g154b252"), block("r80g198b244"),
-            block("r89g179b255"), block("r206g244b255")
+            block(0,13,57), block(2,0,8), block(7,40,109), block(7,49,167), block(11,63,175),
+            block(14,36,96), block(14,53,158), block(15,65,186), block(18,106,255), block(27,75,186),
+            block(27,112,254), block(43,118,243), block(52,153,255), block(66,154,252), block(80,198,244),
+            block(89,179,255), block(206,244,255),
+            block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255)
     };
     public static final String[] CONCRETE_NAMES = {
             name("Dark Blue", 0, 13, 57), name("Black", 2, 0, 8), name("Dark Blue", 7, 40, 109), name("Blue", 7, 49, 167),
@@ -26,7 +27,10 @@ public class BlockInit {
             name("Blue", 27, 75, 186),
             name("Light Blue", 27, 112, 254), name("Light Blue", 43, 118, 243), name("Light Blue", 52, 153, 255),
             name("Light Blue", 18, 106, 255), name("Light Blue", 80, 198, 244),
-            name("Light Blue", 89, 179, 255), name("White", 206, 244, 255)
+            name("Light Blue", 89, 179, 255), name("White", 206, 244, 255),
+            "", "", "", "", "",
+            "", "", "", "", "",
+            ""
     };
 
     private static String name(String s, int r, int g, int b) {
@@ -45,16 +49,20 @@ public class BlockInit {
         ));
     }
 
-    public static Block block(String name) {
+    public static Block block(int r, int g, int b) {
         //TODO 1.21.2
         //RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, MoreConcretes.id(name));
-        Block registered = blockWithoutItem(name);
-        Registry.register(Registries.ITEM, MoreConcretes.id(name), new BlockItem(registered, new Item.Settings()
+        Block registered = blockWithoutItem("r" + r + "g" + g + "b" + b);
+        Registry.register(Registries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b), new BlockItem(registered, new Item.Settings()
                 //TODO 1.21.2
                 //.registryKey(registryKey)
                 //.useBlockPrefixedTranslationKey()
         ));
         return registered;
+    }
+
+    public static Block block (int i) {
+        return block(i, i, i);
     }
 
     public static void load() {}
