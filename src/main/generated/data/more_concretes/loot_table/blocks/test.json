@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "more_concretes:test"
         }
       ],
       "rolls": 1.0
