@@ -119,26 +119,73 @@ public class Provider {
     }*/
 
     public static class Lang {
-        public static class English extends FabricLanguageProvider {
-            public English(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+        public static class en_us extends FabricLanguageProvider {
+            public en_us(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
                 super(dataOutput, "en_us", registryLookup);
             }
-
             @Override
             public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                addText(t, ItemGroupInit.MORE_CONCRETES_TITLE, "More Concretes");
-                for (int i = 0; i < BlockInit.CONCRETES.length; i++) {
-                    t.add(BlockInit.CONCRETES[i], BlockInit.CONCRETE_NAMES[i]);
-                }
+                translate(t, "en_us");
             }
+        }
+        public static class en_gb extends FabricLanguageProvider {
+            public en_gb(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+                super(dataOutput, "en_gb", registryLookup);
+            }
+            @Override
+            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
+                translate(t, "en_gb");
+            }
+        }
+        public static class en_ca extends FabricLanguageProvider {
+            public en_ca(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+                super(dataOutput, "en_ca", registryLookup);
+            }
+            @Override
+            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
+                translate(t, "en_ca");
+            }
+        }
+        public static class en_au extends FabricLanguageProvider {
+            public en_au(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+                super(dataOutput, "en_au", registryLookup);
+            }
+            @Override
+            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
+                translate(t, "en_au");
+            }
+        }
+        public static class en_nz extends FabricLanguageProvider {
+            public en_nz(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+                super(dataOutput, "en_nz", registryLookup);
+            }
+            @Override
+            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
+                translate(t, "en_nz");
+            }
+        }
+        public static class de_de extends FabricLanguageProvider {
+            public de_de(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+                super(dataOutput, "de_de", registryLookup);
+            }
+            @Override
+            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
+                translate(t, "de_de");
+            }
+        }
 
+        private static void translate(FabricLanguageProvider.TranslationBuilder t, String lang) {
+            addText(t, ItemGroupInit.MORE_CONCRETES_TITLE, "More Concretes");
+            for (int i = 0; i < BlockInit.CONCRETES.length; i++) {
+                t.add(BlockInit.CONCRETES[i], BlockInit.CONCRETE_NAMES(lang)[i]);
+            }
+        }
 
-            private static void addText(@NotNull TranslationBuilder builder, @NotNull Text text, @NotNull String value) {
-                if (text.getContent() instanceof TranslatableTextContent translatableTextContent) {
-                    builder.add(translatableTextContent.getKey(), value);
-                } else {
-                    MoreConcretes.logger.warn("Failed to add translation for text: {}", text.getString());
-                }
+        private static void addText(@NotNull FabricLanguageProvider.TranslationBuilder builder, @NotNull Text text, @NotNull String value) {
+            if (text.getContent() instanceof TranslatableTextContent translatableTextContent) {
+                builder.add(translatableTextContent.getKey(), value);
+            } else {
+                MoreConcretes.logger.warn("Failed to add translation for text: {}", text.getString());
             }
         }
     }

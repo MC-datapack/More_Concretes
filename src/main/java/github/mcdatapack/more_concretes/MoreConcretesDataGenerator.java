@@ -11,7 +11,12 @@ public class MoreConcretesDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(Provider.Models::new);
 		pack.addProvider(Provider.LootTables::new);
 		pack.addProvider(Provider.BlockTags::new);
-		pack.addProvider(Provider.Lang.English::new);
+		pack.addProvider(Provider.Lang.en_au::new);
+		pack.addProvider(Provider.Lang.en_ca::new);
+		pack.addProvider(Provider.Lang.en_gb::new);
+		pack.addProvider(Provider.Lang.en_nz::new);
+		pack.addProvider(Provider.Lang.en_us::new);
+		pack.addProvider(Provider.Lang.de_de::new);
 		pack.addProvider(Provider.Recipe::new);
 	}
 }
