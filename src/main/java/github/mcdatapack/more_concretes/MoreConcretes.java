@@ -10,13 +10,18 @@ import org.slf4j.LoggerFactory;
 
 public class MoreConcretes implements ModInitializer {
 	public static final String MOD_ID = "more_concretes";
-	public static final Logger logger = LoggerFactory.getLogger(MOD_ID);
+	public static final Logger logger = LoggerFactory.getLogger("More Concretes");
 
 	@Override
 	public void onInitialize() {
 		logger.info("Loading More Concretes");
+		logger.debug("Initializing Blocks");
 		BlockInit.load();
+		logger.debug("Initialized Blocks");
+		logger.debug("Initializing Item Group");
 		ItemGroupInit.load();
+		logger.debug("Initialized Item Group");
+		logger.info("Loaded More Concretes");
 	}
 
 	public static Identifier id(String name) {

@@ -37,9 +37,7 @@ public class Provider {
         }
 
         @Override
-        public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-
-        }
+        public void generateItemModels(ItemModelGenerator itemModelGenerator) {}
     }
 
     public static class LootTables extends FabricBlockLootTableProvider {
