@@ -9,12 +9,11 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 
 import static github.mcdatapack.more_concretes.init.Colors.*;
 
 public class BlockInit {
+    private static String lang;
     //TODO Do the registries here
     public static final Block[] CONCRETES = {
             block(0,13,57), block(2,0,8), block(7,40,109), block(7,49,167), block(11,63,175),
@@ -23,28 +22,29 @@ public class BlockInit {
             block(89,179,255), block(206,244,255),
             block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255)
     };
-    public static String[] CONCRETE_NAMES(String lang) {
+    public static String[] CONCRETE_NAMES(String Lang) {
+        lang = Lang;
             return new String[] {
-                    name(DARK_BLUE, 0, 13, 57, lang), name(BLACK, 2, 0, 8, lang), name(DARK_BLUE, 7, 40, 109, lang),
-                    name(BLUE, 7, 49, 167, lang), name(BLUE, 11, 63, 175, lang),
-                    name(DARK_BLUE, 14, 36, 96, lang), name(BLUE, 14, 53, 158, lang), name(BLUE, 15, 65, 186, lang),
-                    name(BLUE, 18, 106, 255, lang), name(BLUE, 27, 75, 186, lang),
-                    name(LIGHT_BLUE, 27, 112, 254, lang), name(LIGHT_BLUE, 43, 118, 243, lang), name(LIGHT_BLUE, 52, 153, 255, lang),
-                    name(LIGHT_BLUE, 18, 106, 255, lang), name(LIGHT_BLUE, 80, 198, 244, lang),
-                    name(LIGHT_BLUE, 89, 179, 255, lang), name(WHITE, 206, 244, 255, lang),
-                    name(BLACK, 0, lang), name(DARK_GRAY, 25, lang), name(DARK_GRAY, 50, lang), name(GRAY, 75, lang),
-                    name(GRAY, 100, lang), name(LIGHT_GRAY, 140, lang), name(LIGHT_GRAY, 160, lang), name(LIGHT_GRAY, 200, lang),
-                    name(WHITE, 220, lang), name(WHITE, 240, lang), name(WHITE, 255, lang)
+                    name(DARK_BLUE, 0, 13, 57), name(BLACK, 2, 0, 8), name(DARK_BLUE, 7, 40, 109),
+                    name(BLUE, 7, 49, 167), name(BLUE, 11, 63, 175),
+                    name(DARK_BLUE, 14, 36, 96), name(BLUE, 14, 53, 158), name(BLUE, 15, 65, 186),
+                    name(BLUE, 18, 106, 255), name(BLUE, 27, 75, 186),
+                    name(LIGHT_BLUE, 27, 112, 254), name(LIGHT_BLUE, 43, 118, 243), name(LIGHT_BLUE, 52, 153, 255),
+                    name(LIGHT_BLUE, 18, 106, 255), name(LIGHT_BLUE, 80, 198, 244),
+                    name(LIGHT_BLUE, 89, 179, 255), name(WHITE, 206, 244, 255),
+                    name(BLACK, 0), name(DARK_GRAY, 25), name(DARK_GRAY, 50), name(GRAY, 75),
+                    name(GRAY, 100), name(LIGHT_GRAY, 140), name(LIGHT_GRAY, 160), name(LIGHT_GRAY, 200),
+                    name(WHITE, 220), name(WHITE, 240), name(WHITE, 255)
             };
     }
 
-    private static String name(Colors s, int r, int g, int b, String l) {
-        switch (l) {
+    private static String name(Colors s, int r, int g, int b) {
+        switch (lang) {
             case "en_us", "en_gb", "en_ca", "en_au", "en_nz" -> {
-                return s.getName(l) + " Concrete (r=" + r + " g=" + g + " b=" + b + ")";
+                return s.getName(lang) + " Concrete (r=" + r + " g=" + g + " b=" + b + ")";
             }
             case "de_de" -> {
-                return s.getName(l) + " Beton (r=" + r + " g=" + g + " b=" + b + ")";
+                return s.getName(lang) + " Beton (r=" + r + " g=" + g + " b=" + b + ")";
             }
             default -> {
                 MoreConcretes.logger.error("Error with the provided Language");
@@ -53,8 +53,8 @@ public class BlockInit {
         }
     }
 
-    private static String name(Colors s, int i, String l) {
-        return name(s, i, i, i, l);
+    private static String name(Colors s, int i) {
+        return name(s, i, i, i);
     }
 
     public static Block blockWithoutItem(String name) {
