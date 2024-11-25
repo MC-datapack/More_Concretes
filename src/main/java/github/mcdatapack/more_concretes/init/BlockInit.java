@@ -3,6 +3,7 @@ package github.mcdatapack.more_concretes.init;
 import github.mcdatapack.more_concretes.MoreConcretes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -63,6 +64,7 @@ public class BlockInit {
                 .instrument(NoteBlockInstrument.BASEDRUM)
                 .requiresTool()
                 .strength(1.8F)
+                .allowsSpawning(Blocks::never)
                 //TODO 1.21.2
                 //.registryKey(registryKey)
         ));
