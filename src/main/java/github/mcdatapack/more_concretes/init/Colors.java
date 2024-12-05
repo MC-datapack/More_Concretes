@@ -7,7 +7,8 @@ public enum Colors {
     //TODO expand
     DARK_BLUE("Dark Blue", "Dunkelblauer"), BLUE("Blue", "Blauer"), LIGHT_BLUE("Light Blue", "Hellblauer"),
     BLACK("Black", "Schwarzer"), WHITE("White", "Weißer"), LIGHT_GRAY("Light Gray", "Hellgrauer"),
-    GRAY("Gray", "Grauer"), DARK_GRAY("Dark Gray", "Dunkelgrauer");
+    GRAY("Gray", "Grauer"), DARK_GRAY("Dark Gray", "Dunkelgrauer"),
+    CYAN("Cyan", "Türkiser"), LIME("Lime", "Hellgrüner"), GREEN("Green", "Grüner"), DARK_GREEN("Dark Green", "Dunkelgrüner");
 
     private final String en_us, de_de;
     Colors(String en_us, String de_de) {
