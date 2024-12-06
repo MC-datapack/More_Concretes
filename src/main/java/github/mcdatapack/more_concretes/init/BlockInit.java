@@ -4,7 +4,10 @@ import github.mcdatapack.more_concretes.MoreConcretes;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.NoteBlockInstrument;
+//TODO 1.20.5
+import net.minecraft.block.enums.Instrument;
+//TODO 1.21+
+//import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -22,8 +25,7 @@ public class BlockInit {
             block(14,36,96), block(14,53,158), block(15,65,186), block(18,106,255), block(27,75,186),
             block(27,112,254), block(43,118,243), block(52,153,255), block(66,154,252), block(80,198,244),
             block(89,179,255), block(206,244,255),
-            block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255),
-
+            block(0), block(25), block(50), block(75), block(100), block(140), block(160), block(200), block(220), block(240), block(255)
     };
     public static String[] CONCRETE_NAMES(String Lang) {
         lang = Lang;
@@ -37,8 +39,7 @@ public class BlockInit {
                     name(LIGHT_BLUE, 89, 179, 255), name(WHITE, 206, 244, 255),
                     name(BLACK, 0), name(DARK_GRAY, 25), name(DARK_GRAY, 50), name(GRAY, 75),
                     name(GRAY, 100), name(LIGHT_GRAY, 140), name(LIGHT_GRAY, 160), name(LIGHT_GRAY, 200),
-                    name(WHITE, 220), name(WHITE, 240), name(WHITE, 255),
-
+                    name(WHITE, 220), name(WHITE, 240), name(WHITE, 255)
             };
     }
 
@@ -63,22 +64,21 @@ public class BlockInit {
 
     public static Block blockWithoutItem(String name) {
         return Registry.register(Registries.BLOCK, MoreConcretes.id(name), new Block(AbstractBlock.Settings.create()
-                .instrument(NoteBlockInstrument.BASEDRUM)
+                .instrument(Instrument.BASEDRUM)
                 .requiresTool()
                 .strength(1.8F)
                 .allowsSpawning(Blocks::never)
                 //TODO 1.21.2
-                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MoreConcretes.id(name)))
+                //.registryKey(RegistryKey.of(RegistryKeys.BLOCK, MoreConcretes.id(name)))
         ));
     }
 
     public static Block block(int r, int g, int b) {
-        //TODO 1.21.2
         Block registered = blockWithoutItem("r" + r + "g" + g + "b" + b);
         Registry.register(Registries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b), new BlockItem(registered, new Item.Settings()
                 //TODO 1.21.2
-                .registryKey(RegistryKey.of(RegistryKeys.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b)))
-                .useBlockPrefixedTranslationKey()
+                //.registryKey(RegistryKey.of(RegistryKeys.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b)))
+                //.useBlockPrefixedTranslationKey()
         ));
         return registered;
     }
