@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r180g232b60_from_yellow_concrete_stonecutting"
+        "recipes": "more_concretes:r180g232b60_from_yellow_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -7,16 +7,20 @@ import github.mcdatapack.more_concretes.init.ItemGroupInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,8 +78,8 @@ public class Provider {
         }
 
         @Override
-        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
-            return new RecipeProvider(registries, output) {
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, BootstrapContext<net.minecraft.world.item.crafting.Recipe<?>> bootstrapContext, BootstrapContext<Advancement> bootstrapContext1) {
+            return new RecipeProvider(bootstrapContext, bootstrapContext1) {
                 @Override
                 public void buildRecipes() {
                     for (MoreConcretesConcreteBlock block : BlockInit.CONCRETES) {

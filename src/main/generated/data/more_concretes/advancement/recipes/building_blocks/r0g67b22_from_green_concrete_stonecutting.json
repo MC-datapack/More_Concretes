@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r0g67b22_from_green_concrete_stonecutting"
+        "recipes": "more_concretes:r0g67b22_from_green_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

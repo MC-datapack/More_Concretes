@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r240g75b210_from_magenta_concrete_stonecutting"
+        "recipes": "more_concretes:r240g75b210_from_magenta_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

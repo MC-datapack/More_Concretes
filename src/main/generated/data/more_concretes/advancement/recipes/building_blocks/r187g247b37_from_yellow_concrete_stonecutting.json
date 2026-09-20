@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r187g247b37_from_yellow_concrete_stonecutting"
+        "recipes": "more_concretes:r187g247b37_from_yellow_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

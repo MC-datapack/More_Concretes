@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r67g210b22_from_lime_concrete_stonecutting"
+        "recipes": "more_concretes:r67g210b22_from_lime_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

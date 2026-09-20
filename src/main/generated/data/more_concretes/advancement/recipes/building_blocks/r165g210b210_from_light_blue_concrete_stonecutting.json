@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r165g210b210_from_light_blue_concrete_stonecutting"
+        "recipes": "more_concretes:r165g210b210_from_light_blue_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

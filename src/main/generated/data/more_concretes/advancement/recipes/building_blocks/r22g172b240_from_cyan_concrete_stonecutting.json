@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "more_concretes:r22g172b240_from_cyan_concrete_stonecutting"
+        "recipes": "more_concretes:r22g172b240_from_cyan_concrete_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
