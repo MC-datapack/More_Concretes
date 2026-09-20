@@ -10,14 +10,17 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Provider {
@@ -57,7 +60,11 @@ public class Provider {
 
         @Override
         protected void addTags(HolderLookup.Provider registries) {
-            valueLookupBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.CONCRETES.toArray(new Block[0]));
+            tag(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(key(BlockInit.CONCRETES));
+        }
+
+        private ResourceKey<Block>[] key(List<MoreConcretesConcreteBlock> blocks) {
+            return blocks.stream().map(block -> BuiltInRegistries.BLOCK.getResourceKey(block).get()).toArray(ResourceKey[]::new);
         }
     }
 

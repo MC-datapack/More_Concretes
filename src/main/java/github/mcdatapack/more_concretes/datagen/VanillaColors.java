@@ -5,10 +5,10 @@ import net.minecraft.world.level.block.Blocks;
 
 @SuppressWarnings("unused")
 public enum VanillaColors {
-    WHITE(Blocks.WHITE_CONCRETE), LIGHT_GRAY(Blocks.LIGHT_GRAY_CONCRETE), GRAY(Blocks.GRAY_CONCRETE), BLACK(Blocks.BLACK_CONCRETE),
-    BROWN(Blocks.BROWN_CONCRETE), RED(Blocks.RED_CONCRETE), ORANGE(Blocks.ORANGE_CONCRETE), YELLOW(Blocks.YELLOW_CONCRETE),
-    LIME(Blocks.LIME_CONCRETE), GREEN(Blocks.GREEN_CONCRETE), CYAN(Blocks.CYAN_CONCRETE), LIGHT_BLUE(Blocks.LIGHT_BLUE_CONCRETE),
-    BLUE(Blocks.BLUE_CONCRETE), PURPLE(Blocks.PURPLE_CONCRETE), MAGENTA(Blocks.MAGENTA_CONCRETE), PINK(Blocks.PINK_CONCRETE);
+    WHITE(Blocks.CONCRETE.white()), LIGHT_GRAY(Blocks.CONCRETE.lightGray()), GRAY(Blocks.CONCRETE.gray()), BLACK(Blocks.CONCRETE.black()),
+    BROWN(Blocks.CONCRETE.brown()), RED(Blocks.CONCRETE.red()), ORANGE(Blocks.CONCRETE.orange()), YELLOW(Blocks.CONCRETE.yellow()),
+    LIME(Blocks.CONCRETE.lime()), GREEN(Blocks.CONCRETE.green()), CYAN(Blocks.CONCRETE.cyan()), LIGHT_BLUE(Blocks.CONCRETE.lightBlue()),
+    BLUE(Blocks.CONCRETE.blue()), PURPLE(Blocks.CONCRETE.purple()), MAGENTA(Blocks.CONCRETE.magenta()), PINK(Blocks.CONCRETE.pink());
 
     private final Block concrete;
 
