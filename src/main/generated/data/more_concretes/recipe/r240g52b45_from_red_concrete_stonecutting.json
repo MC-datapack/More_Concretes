@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:red_concrete",
   "result": {
-    "count": 1,
     "id": "more_concretes:r240g52b45"
   }
 }

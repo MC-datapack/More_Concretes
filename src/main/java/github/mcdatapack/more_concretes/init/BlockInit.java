@@ -2,16 +2,16 @@ package github.mcdatapack.more_concretes.init;
 
 import github.mcdatapack.more_concretes.MoreConcretes;
 import github.mcdatapack.more_concretes.block.MoreConcretesConcreteBlock;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 
 import java.util.*;
 
@@ -34,20 +34,20 @@ public class BlockInit {
     }
 
     public static MoreConcretesConcreteBlock blockWithoutItem(int r, int g, int b, String name) {
-        return Registry.register(Registries.BLOCK, MoreConcretes.id(name), new MoreConcretesConcreteBlock(r, g, b, AbstractBlock.Settings.create()
+        return Registry.register(BuiltInRegistries.BLOCK, MoreConcretes.id(name), new MoreConcretesConcreteBlock(r, g, b, BlockBehaviour.Properties.of()
                 .instrument(NoteBlockInstrument.BASEDRUM)
-                .requiresTool()
+                .requiresCorrectToolForDrops()
                 .strength(1.8F)
-                .allowsSpawning(Blocks::never)
-                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, MoreConcretes.id(name)))
+                .isValidSpawn(Blocks::never)
+                .setId(ResourceKey.create(Registries.BLOCK, MoreConcretes.id(name)))
         ));
     }
 
     public static MoreConcretesConcreteBlock block(int r, int g, int b) {
         MoreConcretesConcreteBlock registered = blockWithoutItem(r, g, b, "r" + r + "g" + g + "b" + b);
-        Registry.register(Registries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b), new BlockItem(registered, new Item.Settings()
-                .registryKey(RegistryKey.of(RegistryKeys.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b)))
-                .useBlockPrefixedTranslationKey()
+        Registry.register(BuiltInRegistries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b), new BlockItem(registered, new Item.Properties()
+                .setId(ResourceKey.create(Registries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b)))
+                .useBlockDescriptionPrefix()
         ));
         return registered;
     }

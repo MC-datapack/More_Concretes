@@ -2,7 +2,6 @@
   "type": "minecraft:stonecutting",
   "ingredient": "minecraft:cyan_concrete",
   "result": {
-    "count": 1,
     "id": "more_concretes:r0g202b187"
   }
 }

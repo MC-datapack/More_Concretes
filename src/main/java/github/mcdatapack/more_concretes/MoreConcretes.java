@@ -5,9 +5,8 @@ import github.mcdatapack.more_concretes.init.BlockInit;
 import github.mcdatapack.more_concretes.init.ItemGroupInit;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.block.Block;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 
 public class MoreConcretes implements ModInitializer {
 	public static final String MOD_ID = "more_concretes";
@@ -43,7 +41,7 @@ public class MoreConcretes implements ModInitializer {
 		for (MoreConcretesConcreteBlock block : BlockInit.CONCRETES) {
 			try {
 				Path path = Path.of("M:/Mods/More Concretes/src/main/resources/assets/more_concretes/textures/block/default.png");
-				Path target = Path.of("M:/Mods/More Concretes/src/main/resources/assets/more_concretes/textures/block/" + Registries.BLOCK.getId(block).getPath() + ".png");
+				Path target = Path.of("M:/Mods/More Concretes/src/main/resources/assets/more_concretes/textures/block/" + BuiltInRegistries.BLOCK.getKey(block).getPath() + ".png");
 				if (Files.exists(target)) {
 					Files.delete(target);
 				}
@@ -70,6 +68,6 @@ public class MoreConcretes implements ModInitializer {
 	}
 
 	public static Identifier id(String name) {
-		return Identifier.of(MOD_ID, name);
+		return Identifier.fromNamespaceAndPath(MOD_ID, name);
 	}
 }

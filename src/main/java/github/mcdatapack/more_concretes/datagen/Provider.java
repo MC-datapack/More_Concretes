@@ -4,74 +4,75 @@ import github.mcdatapack.more_concretes.MoreConcretes;
 import github.mcdatapack.more_concretes.block.MoreConcretesConcreteBlock;
 import github.mcdatapack.more_concretes.init.BlockInit;
 import github.mcdatapack.more_concretes.init.ItemGroupInit;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
-import net.minecraft.block.Block;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public class Provider {
     public static class Models extends FabricModelProvider {
-        public Models(FabricDataOutput output) {
+        public Models(FabricPackOutput output) {
             super(output);
         }
 
         @Override
-        public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+        public void generateBlockStateModels(BlockModelGenerators generator) {
             for (Block concrete : BlockInit.CONCRETES) {
-                blockStateModelGenerator.registerSimpleCubeAll(concrete);
+                generator.createTrivialCube(concrete);
             }
         }
 
         @Override
-        public void generateItemModels(ItemModelGenerator itemModelGenerator) {}
+        public void generateItemModels(ItemModelGenerators generator) {}
     }
 
-    public static class LootTables extends FabricBlockLootTableProvider {
-        public LootTables(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-            super(dataOutput, registryLookup);
+    public static class LootTables extends FabricBlockLootSubProvider {
+        public LootTables(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+            super(packOutput, registriesFuture);
         }
 
         @Override
         public void generate() {
             for (Block concrete : BlockInit.CONCRETES) {
-                addDrop(concrete);
+                dropSelf(concrete);
             }
         }
     }
 
-    public static class BlockTags extends FabricTagProvider.BlockTagProvider {
-        public BlockTags(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-            super(output, registriesFuture);
+    public static class BlockTags extends FabricTagsProvider.BlockTagsProvider {
+        public BlockTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+            super(output, registryLookupFuture);
         }
 
         @Override
-        protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-            getOrCreateTagBuilder(net.minecraft.registry.tag.BlockTags.PICKAXE_MINEABLE).add(BlockInit.CONCRETES.toArray(new Block[0]));
+        protected void addTags(HolderLookup.Provider registries) {
+            valueLookupBuilder(net.minecraft.tags.BlockTags.MINEABLE_WITH_PICKAXE).add(BlockInit.CONCRETES.toArray(new Block[0]));
         }
     }
 
     public static class Recipe extends FabricRecipeProvider {
-        public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        public Recipe(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
             super(output, registriesFuture);
         }
 
-        protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
-            return new RecipeGenerator(registries, exporter) {
+        @Override
+        protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+            return new RecipeProvider(registries, output) {
                 @Override
-                public void generate() {
+                public void buildRecipes() {
                     for (MoreConcretesConcreteBlock block : BlockInit.CONCRETES) {
-                        offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, block, block.color.vanillaColor.getConcrete());
+                        stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, block, block.color.vanillaColor.getConcrete());
                     }
                 }
             };
@@ -85,57 +86,63 @@ public class Provider {
 
     public static class Lang {
         public static class en_us extends FabricLanguageProvider {
-            public en_us(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "en_us", registryLookup);
+            public en_us(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "en_us", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "en_us");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "en_us");
             }
         }
         public static class en_gb extends FabricLanguageProvider {
-            public en_gb(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "en_gb", registryLookup);
+            public en_gb(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "en_gb", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "en_gb");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "en_gb");
             }
         }
         public static class en_ca extends FabricLanguageProvider {
-            public en_ca(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "en_ca", registryLookup);
+            public en_ca(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "en_ca", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "en_ca");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "en_ca");
             }
         }
         public static class en_au extends FabricLanguageProvider {
-            public en_au(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "en_au", registryLookup);
+            public en_au(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "en_au", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "en_au");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "en_au");
             }
         }
         public static class en_nz extends FabricLanguageProvider {
-            public en_nz(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "en_nz", registryLookup);
+            public en_nz(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "en_nz", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "en_nz");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "en_nz");
             }
         }
         public static class de_de extends FabricLanguageProvider {
-            public de_de(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-                super(dataOutput, "de_de", registryLookup);
+            public de_de(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+                super(output, "de_de", registriesFuture);
             }
+
             @Override
-            public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder t) {
-                translate(t, "de_de");
+            public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+                translate(translationBuilder, "de_de");
             }
         }
 
@@ -145,8 +152,8 @@ public class Provider {
                 t.add(block, BlockInit.name(lang, block.color, block.r, block.g, block.b));
         }
 
-        private static void addText(@NotNull FabricLanguageProvider.TranslationBuilder builder, @NotNull Text text, @NotNull String value) {
-            if (text.getContent() instanceof TranslatableTextContent translatableTextContent) {
+        private static void addText(@NotNull FabricLanguageProvider.TranslationBuilder builder, @NotNull Component text, @NotNull String value) {
+            if (text.getContents() instanceof TranslatableContents translatableTextContent) {
                 builder.add(translatableTextContent.getKey(), value);
             } else {
                 MoreConcretes.logger.warn("Failed to add translation for text: {}", text.getString());

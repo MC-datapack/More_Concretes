@@ -1,7 +1,7 @@
 package github.mcdatapack.more_concretes.block;
 
 import github.mcdatapack.more_concretes.init.Colors;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 import java.util.EnumMap;
 
@@ -9,7 +9,7 @@ public class MoreConcretesConcreteBlock extends Block {
     public final int r, g, b;
     public final Colors color;
 
-    public MoreConcretesConcreteBlock(int r, int g, int b, Settings settings) {
+    public MoreConcretesConcreteBlock(int r, int g, int b, Properties settings) {
         super(settings);
         this.r = r;
         this.g = g;
