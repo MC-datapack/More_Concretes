@@ -1,25 +1,17 @@
 package github.mcdatapack.more_concretes.datagen;
 
 import github.mcdatapack.more_concretes.MoreConcretes;
+import github.mcdatapack.more_concretes.block.MoreConcretesConcreteBlock;
 import github.mcdatapack.more_concretes.init.BlockInit;
 import github.mcdatapack.more_concretes.init.ItemGroupInit;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.*;
 import net.minecraft.block.Block;
-//TODO 1.21-1.21.3
-import net.minecraft.data.client.BlockStateModelGenerator;
-import net.minecraft.data.client.ItemModelGenerator;
-//TODO 1.21.4
-//import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-//import net.minecraft.client.data.BlockStateModelGenerator;
-//import net.minecraft.client.data.ItemModelGenerator;
-//import net.minecraft.data.recipe.RecipeExporter;
-//import net.minecraft.data.recipe.RecipeGenerator;
-//TODO 1.21.2
-//import net.minecraft.data.server.recipe.RecipeGenerator;
-//TODO 1.20.5 - 1.21
-import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.RecipeProvider;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.client.data.BlockStateModelGenerator;
+import net.minecraft.client.data.ItemModelGenerator;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
@@ -27,8 +19,6 @@ import net.minecraft.text.TranslatableTextContent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-
-import static github.mcdatapack.more_concretes.datagen.VanillaColors.*;
 
 public class Provider {
     public static class Models extends FabricModelProvider {
@@ -67,35 +57,11 @@ public class Provider {
 
         @Override
         protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-            getOrCreateTagBuilder(net.minecraft.registry.tag.BlockTags.PICKAXE_MINEABLE).add(BlockInit.CONCRETES);
+            getOrCreateTagBuilder(net.minecraft.registry.tag.BlockTags.PICKAXE_MINEABLE).add(BlockInit.CONCRETES.toArray(new Block[0]));
         }
     }
 
-    //TODO 1.21
     public static class Recipe extends FabricRecipeProvider {
-        public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-            super(output, registriesFuture);
-        }
-
-        @Override
-        public void generate(RecipeExporter exporter) {
-            recipe(exporter, BLUE, 0);
-            recipe(exporter, BLACK, 1);
-            for (int i = 2; i < 10; i++) recipe(exporter, BLUE, i);
-            for (int i = 10; i < 16; i++) recipe(exporter, LIGHT_BLUE, i);
-            recipe(exporter, WHITE, 16);
-            recipe(exporter, BLACK, 17);
-            for (int i = 18; i < 22; i++) recipe(exporter, GRAY, i);
-            for (int i = 22; i < 25; i++) recipe(exporter, LIGHT_GRAY, i);
-            for (int i = 25; i < 28; i++) recipe(exporter, WHITE, i);
-        }
-
-        public void recipe(RecipeExporter exporter, VanillaColors color, int output) {
-            RecipeProvider.offerStonecuttingRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[output], color.getConcrete());
-        }
-    }
-    //TODO 1.21.2
-    /*public static class Recipe extends FabricRecipeProvider {
         public Recipe(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
             super(output, registriesFuture);
         }
@@ -104,15 +70,9 @@ public class Provider {
             return new RecipeGenerator(registries, exporter) {
                 @Override
                 public void generate() {
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[0], BLUE.getConcrete());
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[1], BLACK.getConcrete());
-                    for (int i = 2; i < 10; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], BLUE.getConcrete());
-                    for (int i = 10; i < 16; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], LIGHT_BLUE.getConcrete());
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[16], WHITE.getConcrete());
-                    offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[17], BLACK.getConcrete());
-                    for (int i = 18; i < 22; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], GRAY.getConcrete());
-                    for (int i = 22; i < 25; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], LIGHT_GRAY.getConcrete());
-                    for (int i = 25; i < 28; i++) offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, BlockInit.CONCRETES[i], WHITE.getConcrete());
+                    for (MoreConcretesConcreteBlock block : BlockInit.CONCRETES) {
+                        offerStonecuttingRecipe(RecipeCategory.BUILDING_BLOCKS, block, block.color.vanillaColor.getConcrete());
+                    }
                 }
             };
         }
@@ -121,7 +81,7 @@ public class Provider {
         public String getName() {
             return "recipe";
         }
-    }*/
+    }
 
     public static class Lang {
         public static class en_us extends FabricLanguageProvider {
@@ -181,9 +141,8 @@ public class Provider {
 
         private static void translate(FabricLanguageProvider.TranslationBuilder t, String lang) {
             addText(t, ItemGroupInit.MORE_CONCRETES_TITLE, "More Concretes");
-            for (int i = 0; i < BlockInit.CONCRETES.length; i++) {
-                t.add(BlockInit.CONCRETES[i], BlockInit.CONCRETE_NAMES(lang)[i]);
-            }
+            for (MoreConcretesConcreteBlock block : BlockInit.CONCRETES)
+                t.add(block, BlockInit.name(lang, block.color, block.r, block.g, block.b));
         }
 
         private static void addText(@NotNull FabricLanguageProvider.TranslationBuilder builder, @NotNull Text text, @NotNull String value) {

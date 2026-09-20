@@ -16,7 +16,7 @@ public class ItemGroupInit {
     public static final Text MORE_CONCRETES_TITLE = Text.translatable("itemGroup.more_concretes");
     public static final ItemGroup MORE_CONCRETES_GROUP = register("more_concretes", FabricItemGroup.builder()
             .displayName(MORE_CONCRETES_TITLE)
-            .icon(BlockInit.CONCRETES[0].asItem()::getDefaultStack)
+            .icon(BlockInit.CONCRETES.getFirst().asItem()::getDefaultStack)
             .entries((displayContext, entries) -> {
                 Set<ItemStack> set = ItemStackSet.create();
 

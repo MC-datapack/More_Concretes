@@ -1,19 +1,37 @@
 package github.mcdatapack.more_concretes.init;
 
 import github.mcdatapack.more_concretes.MoreConcretes;
+import github.mcdatapack.more_concretes.datagen.VanillaColors;
 
 @SuppressWarnings("unused")
 public enum Colors {
-    //TODO expand
-    DARK_BLUE("Dark Blue", "Dunkelblauer"), BLUE("Blue", "Blauer"), LIGHT_BLUE("Light Blue", "Hellblauer"),
-    BLACK("Black", "Schwarzer"), WHITE("White", "Weißer"), LIGHT_GRAY("Light Gray", "Hellgrauer"),
-    GRAY("Gray", "Grauer"), DARK_GRAY("Dark Gray", "Dunkelgrauer"),
-    CYAN("Cyan", "Türkiser"), LIME("Lime", "Hellgrüner"), GREEN("Green", "Grüner"), DARK_GREEN("Dark Green", "Dunkelgrüner");
+    DARK_BLUE(VanillaColors.BLUE, "Dark Blue", "Dunkelblauer"),
+    BLUE(VanillaColors.BLUE, "Blue", "Blauer"),
+    LIGHT_BLUE(VanillaColors.LIGHT_BLUE, "Light Blue", "Hellblauer"),
+    BLACK(VanillaColors.BLACK, "Black", "Schwarzer"),
+    WHITE(VanillaColors.WHITE, "White", "Weißer"),
+    LIGHT_GRAY(VanillaColors.LIGHT_GRAY, "Light Gray", "Hellgrauer"),
+    GRAY(VanillaColors.GRAY, "Gray", "Grauer"),
+    DARK_GRAY(VanillaColors.GRAY, "Dark Gray", "Dunkelgrauer"),
+    CYAN(VanillaColors.CYAN, "Cyan", "Türkiser"),
+    LIME(VanillaColors.LIME, "Lime", "Hellgrüner"),
+    GREEN(VanillaColors.GREEN, "Green", "Grüner"),
+    DARK_GREEN(VanillaColors.GREEN, "Dark Green", "Dunkelgrüner"),
+    PINK(VanillaColors.PINK, "Pink", "Pink"),
+    MAGENTA(VanillaColors.MAGENTA, "Magenta", "Magenta"),
+    PURPLE(VanillaColors.PURPLE, "Purple", "Lila"),
+    YELLOW(VanillaColors.YELLOW, "Yellow", "Gelb"),
+    ORANGE(VanillaColors.ORANGE, "Orange", "Orange"),
+    RED(VanillaColors.RED, "Red", "Rot"),
+    DARK_RED(VanillaColors.RED, "Dark Red", "Dunkelrot");
 
-    private final String en_us, de_de;
-    Colors(String en_us, String de_de) {
+    public final String en_us, de_de;
+    public final VanillaColors vanillaColor;
+
+    Colors(VanillaColors vanillaColor, String en_us, String de_de) {
         this.en_us = en_us;
         this.de_de = de_de;
+        this.vanillaColor = vanillaColor;
     }
 
     public String getName(String lang) {
