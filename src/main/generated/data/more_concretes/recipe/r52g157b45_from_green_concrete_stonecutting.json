@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:green_concrete",
-  "result": {
-    "id": "more_concretes:r52g157b45"
-  }
-}

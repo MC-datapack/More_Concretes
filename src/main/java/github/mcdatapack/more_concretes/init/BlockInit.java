@@ -2,20 +2,16 @@ package github.mcdatapack.more_concretes.init;
 
 import github.mcdatapack.more_concretes.MoreConcretes;
 import github.mcdatapack.more_concretes.block.MoreConcretesConcreteBlock;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.Material;
 
 import java.util.*;
 
 public class BlockInit {
+    private static boolean initialized = false;
     public static final List<MoreConcretesConcreteBlock> CONCRETES = new ArrayList<>();
 
     public static String name(String lang, Colors s, int r, int g, int b) {
@@ -34,35 +30,40 @@ public class BlockInit {
     }
 
     public static MoreConcretesConcreteBlock blockWithoutItem(int r, int g, int b, String name) {
-        return Registry.register(BuiltInRegistries.BLOCK, MoreConcretes.id(name), new MoreConcretesConcreteBlock(r, g, b, BlockBehaviour.Properties.of()
-                .instrument(NoteBlockInstrument.BASEDRUM)
+        MoreConcretesConcreteBlock block = new MoreConcretesConcreteBlock(r, g, b, FabricBlockSettings.of(Material.STONE)
                 .requiresCorrectToolForDrops()
                 .strength(1.8F)
-                .isValidSpawn(Blocks::never)
-                .setId(ResourceKey.create(Registries.BLOCK, MoreConcretes.id(name)))
-        ));
+                .isValidSpawn(((blockState, blockGetter, blockPos, object) -> false)));
+        return Registry.register(Registry.BLOCK, MoreConcretes.id(name), block);
     }
 
     public static MoreConcretesConcreteBlock block(int r, int g, int b) {
-        MoreConcretesConcreteBlock registered = blockWithoutItem(r, g, b, "r" + r + "g" + g + "b" + b);
-        Registry.register(BuiltInRegistries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b), new BlockItem(registered, new Item.Properties()
-                .setId(ResourceKey.create(Registries.ITEM, MoreConcretes.id("r" + r + "g" + g + "b" + b)))
-                .useBlockDescriptionPrefix()
-        ));
+        String name = "r" + r + "g" + g + "b" + b;
+        MoreConcretesConcreteBlock registered = blockWithoutItem(r, g, b, name);
+        Registry.register(Registry.ITEM, MoreConcretes.id(name),
+                new BlockItem(registered, new FabricItemSettings().tab(ItemGroupInit.MORE_CONCRETES_GROUP)));
         return registered;
     }
 
-    public static Block block (int i) {
-        return block(i, i, i);
-    }
-
     public static void load() {
+        if (initialized)
+            return;
+        CONCRETES.add(blockWithoutItem(0, 0, 0, "r0g0b0"));
+        Registry.register(Registry.ITEM, MoreConcretes.id("r0g0b0"),
+                new BlockItem(CONCRETES.get(0), new FabricItemSettings().tab(ItemGroupInit.MORE_CONCRETES_GROUP)));
         for (float r = 0; r < 255; r += 7.5F) {
             for (float g = 0; g < 255; g += 7.5F) {
                 for (float b = 0; b < 255; b += 7.5F) {
-                    CONCRETES.add(block((int) r, (int) g, (int) b));
+                    if (r == 0 && g == 0 && b == 0)
+                        continue;
+                    try {
+                        CONCRETES.add(block((int) r, (int) g, (int) b));
+                    } catch (RuntimeException e) {
+                        MoreConcretes.logger.error("Failed to register block: r={}, g={}, b={}", r, g, b);
+                    }
                 }
             }
         }
+        initialized = true;
     }
 }
